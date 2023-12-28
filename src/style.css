@@ -1,0 +1,78 @@
+.body {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: rgb(18, 18, 19);
+}
+
+
+.navbar-brand {
+    font-size: 36px;
+    line-height: 52px;
+    letter-spacing: 2px;
+}
+
+
+
+
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 484px;
+    height: 200px;
+}
+
+.keyboard-button {
+    width: 43px;
+    height: 58px;
+    margin: 0 auto 8px;
+    /* Other styles... */
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+    background-color: #8F999D;
+    border-radius: 5px;
+}
+
+#keyboard-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+#game-board {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 500px;
+    height: 451px;
+    background-color: rgb(36, 39, 40);
+}
+
+.grid-container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    flex-grow: 1;
+    width: 350px;
+    height: 420px;
+    gap: .25em;
+    background-color: rgb(36, 39, 40);
+
+}
+
+.tile {
+    font-size: 2em;
+    font-weight: bold;
+    color: #ffffff;
+    width: 62px;
+    height: 62px;
+    border: 3px solid hsl(240, 2%, 23%);
+}
