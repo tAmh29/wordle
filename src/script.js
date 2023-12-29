@@ -29,7 +29,12 @@ var guessWord = valid_words[Math.floor(Math.random()*valid_words.length)].toUppe
 
 var shortestTime = Infinity;
 
-// Retrieve the shortest time from localStorage if it exists
+window.onload = function() {
+    initialize();
+    updateShortestTimeDisplay();   
+};
+
+// Retrieve the shortest time from localStorage
 if (typeof Storage !== "undefined") {
     var storedShortestTime = localStorage.getItem("shortestTime");
     if (storedShortestTime) {
@@ -40,10 +45,7 @@ if (typeof Storage !== "undefined") {
 
 
 
-window.onload = function() {
-    initialize();
-    updateShortestTimeDisplay();   
-};
+
 
 function initialize() {
     // game board
