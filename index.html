@@ -8,50 +8,17 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="style.css">
-        <script src="script.js"></script>
+        <link rel="stylesheet" href="./src/style.css">
+        <script src="./src/script.js"></script>
     </head>
-    <body style="height: 100vh;">
+    <body style="height: 100vh; background-color: rgb(18, 18, 19);">
         <nav
             class="navbar navbar-expand-lg navbar-light sticky-top justify-content-center">
             <a class="navbar-brand text-light fw-bolder" href="#">Wordle</a>
         </nav>
         <div class="d-flex justify-content-center align-items-center">
             <div id="game-board" class="text-center">
-                <div id="game-board-inner">
-                    <div class="grid-container">
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-
-                    </div>
+                <div class="grid-container">
                 </div>
             </div>
         </div>
@@ -60,37 +27,38 @@
             <div class="keyboard">
                 <div id="keyboard-cont">
                     <div class="first-row">
-                        <button class="keyboard-button">q</button>
-                        <button class="keyboard-button">w</button>
-                        <button class="keyboard-button">e</button>
-                        <button class="keyboard-button">r</button>
-                        <button class="keyboard-button">t</button>
-                        <button class="keyboard-button">y</button>
-                        <button class="keyboard-button">u</button>
-                        <button class="keyboard-button">i</button>
-                        <button class="keyboard-button">o</button>
-                        <button class="keyboard-button">p</button>
+                        <button class="keyboard-button" id="key-Q">q</button>
+                        <button class="keyboard-button" id="key-W">w</button>
+                        <button class="keyboard-button" id="key-E">e</button>
+                        <button class="keyboard-button" id="key-R">r</button>
+                        <button class="keyboard-button" id="key-T">t</button>
+                        <button class="keyboard-button" id="key-Y">y</button>
+                        <button class="keyboard-button" id="key-U">u</button>
+                        <button class="keyboard-button" id="key-I">i</button>
+                        <button class="keyboard-button" id="key-O">o</button>
+                        <button class="keyboard-button" id="key-P">p</button>
                     </div>
                     <div class="second-row">
-                        <button class="keyboard-button">a</button>
-                        <button class="keyboard-button">s</button>
-                        <button class="keyboard-button">d</button>
-                        <button class="keyboard-button">f</button>
-                        <button class="keyboard-button">g</button>
-                        <button class="keyboard-button">h</button>
-                        <button class="keyboard-button">j</button>
-                        <button class="keyboard-button">k</button>
-                        <button class="keyboard-button">l</button>
+                        <button class="keyboard-button" id="key-A">a</button>
+                        <button class="keyboard-button" id="key-S">s</button>
+                        <button class="keyboard-button" id="key-D">d</button>
+                        <button class="keyboard-button" id="key-F">f</button>
+                        <button class="keyboard-button" id="key-G">g</button>
+                        <button class="keyboard-button" id="key-H">h</button>
+                        <button class="keyboard-button" id="key-J">j</button>
+                        <button class="keyboard-button" id="key-K">k</button>
+                        <button class="keyboard-button" id="key-L">l</button>
                     </div>
                     <div class="third-row">
-                        <button class="keyboard-button">Del</button>
-                        <button class="keyboard-button">z</button>
-                        <button class="keyboard-button">x</button>
-                        <button class="keyboard-button">c</button>
-                        <button class="keyboard-button">v</button>
-                        <button class="keyboard-button">b</button>
-                        <button class="keyboard-button">n</button>
-                        <button class="keyboard-button">m</button>
+                        <button class="keyboard-button"
+                            id="key-Del">Del</button>
+                        <button class="keyboard-button" id="key-Z">z</button>
+                        <button class="keyboard-button" id="key-X">x</button>
+                        <button class="keyboard-button" id="key-C">c</button>
+                        <button class="keyboard-button" id="key-V">v</button>
+                        <button class="keyboard-button" id="key-B">b</button>
+                        <button class="keyboard-button" id="key-N">n</button>
+                        <button class="keyboard-button" id="key-M">m</button>
                         <button class="keyboard-button"
                             style="width: 70px;">Enter</button>
                     </div>
