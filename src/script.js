@@ -22,19 +22,31 @@ let gameStart = false;
 var timerInterval = null;
 var secondsElapsed = 0;
 
-  
+
 valid_words = valid_words.concat(possible_answers);
 
 var guessWord = valid_words[Math.floor(Math.random()*valid_words.length)].toUpperCase();;
 
+var shortestTime = Infinity;
+
+// Retrieve the shortest time from localStorage if it exists
+if (typeof Storage !== "undefined") {
+    var storedShortestTime = localStorage.getItem("shortestTime");
+    if (storedShortestTime) {
+        shortestTime = parseInt(storedShortestTime);
+    }
+}
+
+
+
 
 window.onload = function() {
     initialize();
-    updateTimerDisplay();    
+    updateShortestTimeDisplay();   
 };
 
 function initialize() {
-    // Create the game board
+    // game board
     for (let r = 0; r < height; r++) {
         for (let c = 0; c < width; c++) {
             let tile = document.createElement("span");
@@ -64,10 +76,8 @@ document.addEventListener('keydown', function(event) {
         tile.innerText = key.toUpperCase();
         col++;
     } else if (key === 'Enter') {
-        // Before processing the word, ensure that the current row is completely filled.
         if (col === width) {
-            checkWord(); // Check if the word is valid
-            // Do not move to next row or reset the column here; it will be handled in checkWord.
+            checkWord();
         }
     } else if (key === 'Backspace' && col > 0) {
         col--;
@@ -80,67 +90,78 @@ document.addEventListener('keydown', function(event) {
 
 function checkWord() {
     let inputWord = "";
-    // Construct the word from the tiles
     for (let i = 0; i < width; i++) {
         let tile = document.getElementById(row.toString() + "-" + i.toString());
         inputWord += tile.innerText;
     }
 
-    // Update the validity of the word
     isInputValid = valid_words.includes(inputWord.toLowerCase());
 
-    // Check if the word is valid and color the tiles
     if (!isInputValid) {
         console.log("The input word is not valid");
-        // Handle invalid input, maybe alert the user or give visual feedback
-        // Don't move to the next row, allow correction
     } else {
-        // If the word is valid, proceed with checking each letter
         let correctLetters = 0;
         for (let i = 0; i < width; i++) {
             let tile = document.getElementById(row.toString() + "-" + i.toString());
             let letter = tile.innerText.toLowerCase();
 
-            // Correct letter and correct position
+            // correct letter and position
             if (letter === guessWord[i].toLowerCase()) {
                 tile.style.backgroundColor = "#538D4E";
                 correctLetters++;
             }
-            // Correct letter but wrong position
+            // correct letter but wrong position
             else if (guessWord.toLowerCase().includes(letter)) {
                 tile.style.backgroundColor = "#B59F3B";
             }
-            // Letter not in the word at all
+            // letter not in word
             else {
                 tile.style.backgroundColor = "#3A3A3C";
             }
         }
         
-        // After checking the word, move to the next row
+        // move to next row if 
         col = 0;
         if (correctLetters === width) {
+            if (secondsElapsed < shortestTime || shortestTime === Infinity) {
+                shortestTime = secondsElapsed;
+                if (typeof Storage !== "undefined") { // Check if localStorage is available
+                    localStorage.setItem('shortestTime', shortestTime.toString()); // Corrected key name
+                }
+                updateShortestTimeDisplay(); // Update the display
+            }
             gameOver = true;
             setTimeout(function() {
-                alert("You win!");
                 stopTimer();
-                resetGame(); // Start a new game or handle the win appropriately
-            }, 150); // Start a new game or handle the win appropriately
+                resetGame(); 
+            }, 150);
             return;
         } else {
-            row++; // Only increment the row if the game isn't won
+            row++; // increment the row if the game isn't won
         }
     }
     
-    // Check if the game is over after an incorrect guess or the last row
+    // Check if game is over after an incorrect guess or the last row
     if (row === height && !gameOver) {
         gameOver = true;
         
         setTimeout(function() {
-            alert("Game Over!");
             stopTimer();
-            resetGame(); // Start a new game or handle the win appropriately
+            resetGame(); 
         }, 150);
-        resetGame(); // Start a new game
+        resetGame();
+    }
+}
+
+function updateShortestTimeDisplay() {
+    if (shortestTime === Infinity) {
+        document.getElementById("shortest-time").innerText = "Shortest Time: --:--";
+    } else {
+        var shortestMinutes = Math.floor(shortestTime / 60);
+        var shortestSeconds = shortestTime % 60;
+        document.getElementById("shortest-time").innerText = "Shortest Time: " +
+            (shortestMinutes < 10 ? "0" : "") + shortestMinutes + ":" +
+            (shortestSeconds < 10 ? "0" : "") + shortestSeconds;
     }
 }
 
@@ -149,13 +170,11 @@ function checkWord() {
 function resetGame() {
     // Clear the board
     document.querySelector(".grid-container").innerHTML = "";
-    // Reset the game variables
     row = 0;
     col = 0;
     gameOver = false;
     // Pick a new word
     guessWord = valid_words[Math.floor(Math.random()*valid_words.length)].toUpperCase();;
-    // Reinitialize the game
     initialize();
 }
 
