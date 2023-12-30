@@ -12990,11 +12990,6 @@ function initialize() {
   console.log("The word to guess is: " + guessWord);
   console.log("Win Streak: " + winstreak);
 }
-
-function randomWords() {
-  return valid_words[Math.floor(Math.random() * valid_words.length)];
-}
-
 /* ------------------------------------------- Handle Inputs ------------------------------------------------------------- */
 
 function handleInput() {
