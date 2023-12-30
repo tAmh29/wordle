@@ -25,13 +25,15 @@ var secondsElapsed = 0;
 
 valid_words = valid_words.concat(possible_answers);
 
-var guessWord = valid_words[Math.floor(Math.random()*valid_words.length)].toUpperCase();;
-
 var shortestTime = Infinity;
 
 window.onload = function() {
     initialize();
-    updateShortestTimeDisplay();   
+    updateShortestTimeDisplay(); 
+    setupKeyboardListeners();
+    handleInput();
+    
+
 };
 
 // Retrieve the shortest time from localStorage
@@ -41,9 +43,6 @@ if (typeof Storage !== "undefined") {
         shortestTime = parseInt(storedShortestTime);
     }
 }
-
-
-
 
 
 
@@ -58,17 +57,24 @@ function initialize() {
             document.querySelector(".grid-container").appendChild(tile);
         }
     }
+    guessWord = valid_words[Math.floor(Math.random()*valid_words.length)].toUpperCase();;
+
     // Pick a random word from the list when the game starts
     console.log("The word to guess is: " + guessWord);
+
 }
+
+
+
+
 
 /* ------------------------------------------- Handle Inputs ------------------------------------------------------------- */
 
-document.addEventListener('keydown', function(event) {
+
+function handleInput() {
+    document.addEventListener('keydown', function (event) {
     const key = event.key;
-    if (gameOver) {
-        return;
-    }
+    if (gameOver) return;
 
     // Capture letters 
     if (key >= 'a' && key <= 'z' && col < width) {
@@ -87,6 +93,65 @@ document.addEventListener('keydown', function(event) {
         tile.innerText = "";
     }
 });
+}
+
+
+
+function setupKeyboardListeners() {
+    // Select all keyboard buttons
+    const keys = document.querySelectorAll('.keyboard-button');
+
+    keys.forEach(key => {
+        key.addEventListener('click', function(event) {
+            // Get the value from the button
+            var keyValue = event.target.innerText.toLowerCase();
+
+            // Handle the key
+            if (keyValue === 'del') {
+                if (col > 0) {
+                    col--;
+                    let tile = document.getElementById(row.toString() + "-" + col.toString());
+                    tile.innerText = "";
+                }
+                
+            } else if (keyValue === 'enter') {
+                if (col === width) {
+                    checkWord();
+                }
+            } else if (keyValue >= 'a' && keyValue <= 'z' && col < width) {
+                gameStart = true;
+                startTimer();
+                let tile = document.getElementById(row.toString() + "-" + col.toString());
+                tile.innerText = keyValue.toUpperCase();
+                col++;
+            }
+        });
+    });
+}
+
+// Simulate keypress function
+function simulateKeypress(keyValue) {
+    // Normalize key value to lowercase for comparison
+    keyValue = keyValue.toLowerCase();
+
+    if (gameOver) return;
+
+    if (keyValue >= 'a' && keyValue <= 'z' && col < width) {
+        gameStart = true;
+        startTimer();
+        let tile = document.getElementById(row.toString() + "-" + col.toString());
+        tile.innerText = keyValue.toUpperCase();
+        col++;
+    } else if (keyValue === 'enter') {
+        if (col === width) {
+            checkWord();
+        }
+    } else if (keyValue === 'backspace' && col > 0) {
+        col--;
+        let tile = document.getElementById(row.toString() + "-" + col.toString());
+        tile.innerText = "";
+    }
+}
 
 /* ------------------------------------------- Game Logic ------------------------------------------------------------- */
 
@@ -122,7 +187,6 @@ function checkWord() {
             }
         }
         
-        // move to next row if 
         col = 0;
         if (correctLetters === width) {
             if (secondsElapsed < shortestTime || shortestTime === Infinity) {
@@ -209,3 +273,6 @@ function stopTimer() {
     secondsElapsed = 0;
     updateTimerDisplay();
 }
+
+/* ------------------------------------------- Keyboard ------------------------------------------------------------- */
+
