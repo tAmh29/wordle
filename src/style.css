@@ -1,3 +1,9 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
 .body {
     display: flex;
     justify-content: center;
@@ -6,6 +12,7 @@
     height: 100vh;
     font-family: Arial, sans-serif;
 }
+
 
 
 .navbar-brand {
