@@ -1,9 +1,7 @@
-
-
 # Unlimited Games Wordle Clone :video_game:
 
 TRY IT OUT :video_game:
-- [**WORDLE CLONE**](https://tamh29.github.io/wordle/)
+[**WORDLE CLONE**](https://tamh29.github.io/wordle/)
 ## Introduction:
 - Wordle clone coded with HTML, CSS, and mainly JS.  
 
