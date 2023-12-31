@@ -12990,6 +12990,7 @@ function initialize() {
   console.log("The word to guess is: " + guessWord);
   console.log("Win Streak: " + winstreak);
 }
+
 /* ------------------------------------------- Handle Inputs ------------------------------------------------------------- */
 
 function handleInput() {
@@ -13035,10 +13036,9 @@ function keyboardHandler() {
           tile.innerText = "";
         }
       } else if (keyValue === "enter") {
-        if (col === width) {
-          checkWord();
-        }
-
+          if (col === width) {
+              checkWord();
+          } 
         if (guessWord.includes(keyValue)) {
           this.style.backgroundColor = "#B59F3B";
         }
@@ -13088,10 +13088,10 @@ function checkWord() {
 
   isInputValid = valid_words.includes(inputWord.toLowerCase());
 
-  if (!isInputValid) {
-    console.log("The input word is not valid");
-  } else {
-    let correctLetters = 0;
+    if (!isInputValid) {
+        console.log("The input word is not valid");
+    } else {
+        let correctLetters = 0;
 
     for (let i = 0; i < width; i++) {
       let tile = document.getElementById(row.toString() + "-" + i.toString());
@@ -13138,7 +13138,11 @@ function handleKeyboard() {
 }
 
 function endedGame(correctLetters) {
-  col = 0;
+    col = 0;
+    if (inputWord < width) {
+        showAlertMessage();
+        console.log("too short");
+    }
   if (correctLetters === width) {
     handleWin();
     updateWinstreakDisplay();
