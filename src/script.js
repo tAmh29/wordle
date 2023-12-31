@@ -12963,15 +12963,21 @@ window.onload = function () {
   updateShortestTimeDisplay();
   keyboardHandler();
   handleInput();
+  localStorageGetTime();
+};
+
+
 // Get the shortest time from local storage
+function localStorageGetTime() {
   if (typeof Storage !== "undefined") {
     var storedShortestTime = localStorage.getItem("shortestTime");
     if (storedShortestTime) {
       shortestTime = parseInt(storedShortestTime);
+      updateShortestTimeDisplay();
     }
   }
-};
-
+}
+  
 function initialize() {
   // game board
   for (let r = 0; r < height; r++) {
@@ -13139,10 +13145,6 @@ function handleKeyboard() {
 
 function endedGame(correctLetters) {
     col = 0;
-    if (inputWord < width) {
-        showAlertMessage();
-        console.log("too short");
-    }
   if (correctLetters === width) {
     handleWin();
     updateWinstreakDisplay();
